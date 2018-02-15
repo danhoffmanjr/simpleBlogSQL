@@ -9,6 +9,7 @@ namespace AppCore.Interfaces
     {
         List<Post> GetAll();
         Post GetById(int id);
+        Post GetByPermalink(string permalink);
         void Create(Post post);
         void Delete(int id);
         void Update(Post post);

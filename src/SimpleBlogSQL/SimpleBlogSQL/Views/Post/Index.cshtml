@@ -1,10 +1,10 @@
 ﻿@model IEnumerable<AppCore.Entities.Post>
 
 @{
-    ViewData["Title"] = "Index";
+    ViewData["Title"] = "Posts";
 }
 
-<h2>Index</h2>
+<h2>Posts</h2>
 
 <p>
     <a asp-action="Create">Create New</a>
@@ -67,9 +67,9 @@
                 @Html.DisplayFor(modelItem => item.AverageRating) (@Html.DisplayFor(modelItem => item.RatingsCount) Reviews)
             </td>
             <td>
-                @Html.ActionLink("Edit", "Edit", new { /* id=item.PrimaryKey */ }) |
-                @Html.ActionLink("Details", "Details", new { /* id=item.PrimaryKey */ }) |
-                @Html.ActionLink("Delete", "Delete", new { /* id=item.PrimaryKey */ })
+                @Html.ActionLink("Edit", "Edit", new { id=item.Id }) |
+                @Html.ActionLink("Details", "Details", new { permalink=item.Permalink }) |
+                @Html.ActionLink("Delete", "Delete", new { id=item.Id })
             </td>
         </tr>
 }

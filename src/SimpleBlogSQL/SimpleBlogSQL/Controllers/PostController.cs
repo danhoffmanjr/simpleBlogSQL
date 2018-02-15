@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using AppCore.Entities;
 using AppCore.Interfaces;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
@@ -24,9 +25,15 @@ namespace SimpleBlogSQL.Controllers
         }
 
         // GET: Post/Details/5
-        public ActionResult Details(int id)
+        //public ActionResult Details(int id)
+        //{
+        //    return View(_postRepository.GetById(id));
+        //}
+
+        // GET: Post/Details/Permalink
+        public IActionResult Details(string permalink)
         {
-            return View();
+            return View(_postRepository.GetByPermalink(permalink));
         }
 
         // GET: Post/Create
@@ -38,11 +45,11 @@ namespace SimpleBlogSQL.Controllers
         // POST: Post/Create
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Create(IFormCollection collection)
+        public ActionResult Create(Post newPost, IFormCollection collection)
         {
             try
             {
-                // TODO: Add insert logic here
+                _postRepository.Create(newPost);
 
                 return RedirectToAction(nameof(Index));
             }
@@ -55,17 +62,17 @@ namespace SimpleBlogSQL.Controllers
         // GET: Post/Edit/5
         public ActionResult Edit(int id)
         {
-            return View();
+            return View(_postRepository.GetById(id));
         }
 
         // POST: Post/Edit/5
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Edit(int id, IFormCollection collection)
+        public ActionResult Edit(Post editedPost, IFormCollection collection)
         {
             try
             {
-                // TODO: Add update logic here
+                _postRepository.Update(editedPost);
 
                 return RedirectToAction(nameof(Index));
             }
@@ -78,7 +85,7 @@ namespace SimpleBlogSQL.Controllers
         // GET: Post/Delete/5
         public ActionResult Delete(int id)
         {
-            return View();
+            return View(_postRepository.GetById(id));
         }
 
         // POST: Post/Delete/5
@@ -88,7 +95,7 @@ namespace SimpleBlogSQL.Controllers
         {
             try
             {
-                // TODO: Add delete logic here
+                _postRepository.Delete(id);
 
                 return RedirectToAction(nameof(Index));
             }
