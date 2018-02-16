@@ -1,72 +1,94 @@
-﻿@model AppCore.Entities.Post
+﻿@model AppCore.Entities.PostViewModel
 
 @{
     ViewData["Title"] = "Details";
 }
 
-<h2>@Html.DisplayFor(model => model.Title)</h2>
+<h2>@Html.DisplayFor(model => model.Post.Title)</h2>
 
 <div>
-    <h4>@Html.DisplayFor(model => model.Author)</h4>
+    <h4>@Html.DisplayFor(model => model.Post.Author)</h4>
     <hr />
     <dl class="dl-horizontal">
         <dt>
-            @Html.DisplayNameFor(model => model.Id)
+            @Html.DisplayNameFor(model => model.Post.Id)
         </dt>
         <dd>
-            @Html.DisplayFor(model => model.Id)
+            @Html.DisplayFor(model => model.Post.Id)
         </dd>
         <dt>
-            @Html.DisplayNameFor(model => model.Title)
+            @Html.DisplayNameFor(model => model.Post.Title)
         </dt>
         <dd>
-            @Html.DisplayFor(model => model.Title)
+            @Html.DisplayFor(model => model.Post.Title)
         </dd>
         <dt>
-            @Html.DisplayNameFor(model => model.Author)
+            @Html.DisplayNameFor(model => model.Post.Author)
         </dt>
         <dd>
-            @Html.DisplayFor(model => model.Author)
+            @Html.DisplayFor(model => model.Post.Author)
         </dd>
         <dt>
-            @Html.DisplayNameFor(model => model.Permalink)
+            @Html.DisplayNameFor(model => model.Post.Permalink)
         </dt>
         <dd>
-            @Html.DisplayFor(model => model.Permalink)
+            @Html.DisplayFor(model => model.Post.Permalink)
         </dd>
         <dt>
-            @Html.DisplayNameFor(model => model.PostContent)
+            @Html.DisplayNameFor(model => model.Post.PostContent)
         </dt>
         <dd>
-            @Html.DisplayFor(model => model.PostContent)
+            @Html.DisplayFor(model => model.Post.PostContent)
         </dd>
         <dt>
-            @Html.DisplayNameFor(model => model.CreateDate)
+            @Html.DisplayNameFor(model => model.Post.CreateDate)
         </dt>
         <dd>
-            @Html.DisplayFor(model => model.CreateDate)
+            @Html.DisplayFor(model => model.Post.CreateDate)
         </dd>
         <dt>
-            @Html.DisplayNameFor(model => model.UpdateDate)
+            @Html.DisplayNameFor(model => model.Post.UpdateDate)
         </dt>
         <dd>
-            @Html.DisplayFor(model => model.UpdateDate)
+            @Html.DisplayFor(model => model.Post.UpdateDate)
         </dd>
         <dt>
-            @Html.DisplayNameFor(model => model.AverageRating)
+            @Html.DisplayNameFor(model => model.Post.AverageRating)
         </dt>
         <dd>
-            @Html.DisplayFor(model => model.AverageRating)
+            @Html.DisplayFor(model => model.Post.AverageRating)
         </dd>
         <dt>
-            @Html.DisplayNameFor(model => model.RatingsCount)
+            @Html.DisplayNameFor(model => model.Post.RatingsCount)
         </dt>
         <dd>
-            @Html.DisplayFor(model => model.RatingsCount)
+            @Html.DisplayFor(model => model.Post.RatingsCount)
         </dd>
     </dl>
 </div>
+<form asp-action="Rate">
+    <div class="form-group">
+        <input asp-for="Rating.PostId" class="form-control" type="hidden" />
+        <label asp-for="Rating.Score" class="control-label">Rate this post:</label>
+        <input asp-for="Rating.Score" class="form-control" type="range" list="tickmarks" min="0" max="100" step="1" />
+        <datalist id="tickmarks">
+            <option value="0" label="Aweful" />
+            <option value="10" />
+            <option value="20" />
+            <option value="30" />
+            <option value="40" />
+            <option value="50" label="So-So" />
+            <option value="60" />
+            <option value="70" />
+            <option value="80" />
+            <option value="90" />
+            <option value="100" label="Awesome" />
+        </datalist>
+        <span asp-validation-for="Rating.Score" text-danger"></span>
+        <input type="submit" value="Submit Rating" class="btn btn-default" />
+    </div>
+</form>
 <div>
-    @Html.ActionLink("Edit", "Edit", new { id = Model.Id }) |
+    @Html.ActionLink("Edit", "Edit", new { id = Model.Post.Id }) |
     <a asp-action="Index">Back to List</a>
 </div>

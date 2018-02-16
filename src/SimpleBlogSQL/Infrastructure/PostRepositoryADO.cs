@@ -246,15 +246,5 @@ namespace Infrastructure
         {
             throw new NotImplementedException();
         }
-
-        public decimal GetAvgRating()
-        {
-            throw new NotImplementedException();
-        }
-
-        public int GetRatingCount()
-        {
-            throw new NotImplementedException();
-        }
     }
 }

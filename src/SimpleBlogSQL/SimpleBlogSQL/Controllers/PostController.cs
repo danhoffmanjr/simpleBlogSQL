@@ -33,7 +33,9 @@ namespace SimpleBlogSQL.Controllers
         // GET: Post/Details/Permalink
         public IActionResult Details(string permalink)
         {
-            return View(_postRepository.GetByPermalink(permalink));
+            PostViewModel viewmodel = new PostViewModel();
+            viewmodel.Post = _postRepository.GetByPermalink(permalink);
+            return View(viewmodel);
         }
 
         // GET: Post/Create
@@ -102,6 +104,49 @@ namespace SimpleBlogSQL.Controllers
             catch
             {
                 return View();
+            }
+        }
+
+        // GET: Blog/Rate/5
+        public IActionResult Rate()
+        {
+            return View();
+        }
+
+        // POST: Blog/Rate/
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        [Route("Rate/{id?}")]
+        public IActionResult Score(Rating newRating)
+        {
+            try
+            {
+                _postRepository.CreateRating(newRating);
+                return View(_postRepository.GetById(newRating.Id));
+            }
+            catch (Exception ex)
+            {
+                Console.Write("Hey, You have an error exception in the Score method");
+                throw ex;
+            }
+        }
+
+        // POST
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public IActionResult Rate(Rating newRating)
+        {
+            try
+            {
+                _postRepository.CreateRating(newRating);
+                //string returnPerma = _postRepo.GetById(id).Permalink;
+                // return RedirectToAction(nameof(Post), new { permalink = returnPerma });
+                return View();
+            }
+            catch (Exception ex)
+            {
+                Console.Write("Hey, You have an error exception in the Save Score method");
+                throw ex;
             }
         }
     }

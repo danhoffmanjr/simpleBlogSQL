@@ -13,8 +13,7 @@ namespace AppCore.Interfaces
         void Create(Post post);
         void Delete(int id);
         void Update(Post post);
-        decimal GetAvgRating();
-        int GetRatingCount();
         void CreateRating(Rating rating);
+
     }
 }
