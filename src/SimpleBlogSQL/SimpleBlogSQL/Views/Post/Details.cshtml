@@ -68,7 +68,8 @@
 </div>
 <form asp-action="Rate">
     <div class="form-group">
-        <input asp-for="Rating.PostId" class="form-control" type="hidden" />
+        <input asp-for="Post.Id" class="form-control" type="hidden" />
+        <input asp-for="Post.Permalink" class="form-control" type="hidden" />
         <label asp-for="Rating.Score" class="control-label">Rate this post:</label>
         <input asp-for="Rating.Score" class="form-control" type="range" list="tickmarks" min="0" max="100" step="1" />
         <datalist id="tickmarks">

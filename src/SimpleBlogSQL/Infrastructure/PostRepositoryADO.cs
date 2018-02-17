@@ -44,6 +44,8 @@ namespace Infrastructure
 
         private string deleteQuery = "DELETE FROM Posts WHERE Id = @id";
 
+        private string insertRating = "INSERT INTO Ratings (PostId, Score) VALUES(@PostId, @Score)";
+
         public List<Post> GetAll()
         {
             List<Post> posts = new List<Post>();
@@ -244,7 +246,22 @@ namespace Infrastructure
 
         public void CreateRating(Rating rating)
         {
-            throw new NotImplementedException();
+            using (SqlConnection conn = new SqlConnection(connStr))
+            {
+                try
+                {
+                    SqlCommand command = new SqlCommand(insertRating, conn);
+                    command.Parameters.AddWithValue("@PostId", rating.PostId);
+                    command.Parameters.AddWithValue("@Score", rating.Score);
+                    conn.Open();
+                    command.ExecuteNonQuery();
+                }
+                catch (Exception)
+                {
+
+                    throw;
+                }
+            }
         }
     }
 }

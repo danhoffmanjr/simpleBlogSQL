@@ -1,25 +1,29 @@
-﻿@model SimpleBlogSQL.Models.PostViewModel
+﻿@model AppCore.Entities.Rating
 
 @{
     ViewData["Title"] = "Rate";
 }
 
-<h2>Rate</h2>
-
-<h4>PostViewModel</h4>
+<h2>Submit Score: @Html.DisplayFor(model => model.Score)</h2>
 <hr />
+<h4>Post Id: @Html.DisplayFor(model => model.PostId)</h4>
 <div class="row">
     <div class="col-md-4">
-        <form asp-action="Rate">
-            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+        <form asp-action="SaveRating">
+            <input asp-for="PostId" class="form-control" type="hidden" />
             <div class="form-group">
-                <input type="submit" value="Create" class="btn btn-default" />
+                <label asp-for="Score" class="control-label">Are you sure you want to submit a score of <strong>@Html.DisplayFor(model => model.Score)</strong> for this post?</label>
+                <input asp-for="Score" type="hidden" class="form-control" />
+            </div>
+            <div class="form-group">
+                <input type="submit" value="Submit Score" class="btn btn-default" />
             </div>
         </form>
     </div>
 </div>
 
 <div>
+    <a href="javascript:void(0);" onclick="history.go(-1);">Cancel</a> |
     <a asp-action="Index">Back to List</a>
 </div>
 

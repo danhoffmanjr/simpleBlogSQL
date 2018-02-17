@@ -33,8 +33,10 @@ namespace SimpleBlogSQL.Controllers
         // GET: Post/Details/Permalink
         public IActionResult Details(string permalink)
         {
-            PostViewModel viewmodel = new PostViewModel();
-            viewmodel.Post = _postRepository.GetByPermalink(permalink);
+            PostViewModel viewmodel = new PostViewModel
+            {
+                Post = _postRepository.GetByPermalink(permalink)
+            };
             return View(viewmodel);
         }
 
@@ -107,26 +109,22 @@ namespace SimpleBlogSQL.Controllers
             }
         }
 
-        // GET: Blog/Rate/5
-        public IActionResult Rate()
-        {
-            return View();
-        }
-
-        // POST: Blog/Rate/
+        // POST: Blog/Rate/Permalink
         [HttpPost]
         [ValidateAntiForgeryToken]
-        [Route("Rate/{id?}")]
-        public IActionResult Score(Rating newRating)
+        public IActionResult Rate(IFormCollection collection)
         {
             try
             {
-                _postRepository.CreateRating(newRating);
-                return View(_postRepository.GetById(newRating.Id));
+                Rating newRating = new Rating
+                {
+                    PostId = int.Parse(collection["Post.Id"].ToString()),
+                    Score = decimal.Parse(collection["Rating.Score"].ToString())
+                };
+                return View(newRating);
             }
             catch (Exception ex)
             {
-                Console.Write("Hey, You have an error exception in the Score method");
                 throw ex;
             }
         }
@@ -134,18 +132,16 @@ namespace SimpleBlogSQL.Controllers
         // POST
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public IActionResult Rate(Rating newRating)
+        public IActionResult SaveRating(Rating newRating)
         {
             try
             {
                 _postRepository.CreateRating(newRating);
-                //string returnPerma = _postRepo.GetById(id).Permalink;
-                // return RedirectToAction(nameof(Post), new { permalink = returnPerma });
-                return View();
+
+                return RedirectToAction(nameof(Index));
             }
             catch (Exception ex)
             {
-                Console.Write("Hey, You have an error exception in the Save Score method");
                 throw ex;
             }
         }
