@@ -14,6 +14,5 @@ namespace AppCore.Interfaces
         void Delete(int id);
         void Update(Post post);
         void CreateRating(Rating rating);
-
     }
 }
